@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import { useTodoListStore } from '@/stores/todolist';
 import { storeToRefs } from 'pinia';
+import { serverTimestamp } from 'firebase/firestore';
 
 const newTodo = ref('')
 const store = useTodoListStore();
@@ -11,9 +12,11 @@ store.fetchTodos();
 
 const addTodo = () => {
   const todo = {
+    id: '',
     position: todos.value.length + 1,
     text: newTodo.value,
-    done: false
+    done: false,
+    time: serverTimestamp()
   }
   store.addTodo(todo);
   todos.value.push(todo);

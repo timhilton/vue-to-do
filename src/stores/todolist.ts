@@ -14,6 +14,7 @@ import {
 
 export interface Todo {
     id: string;
+    position: number;
     text: string;
     done: boolean;
     time: any;
@@ -31,8 +32,7 @@ export const useTodoListStore = defineStore('todoList', {
         actions: {
             async addTodo(todo: Todo) {
                 await addDoc(collection(db, "todos"), {
-                    todo,
-                    time: serverTimestamp()
+                    todo
                 });
             },
             async markAsDone(todo: Todo) {
